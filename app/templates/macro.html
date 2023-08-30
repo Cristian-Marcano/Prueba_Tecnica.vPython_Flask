@@ -1,0 +1,14 @@
+{% macro render_message_error(messages) %}
+    {% if messages %}
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% for category,message in messages %}
+                <section class="message-container">
+                    <div class="message-box">
+                        <div class="message-text">{{message}}</div>
+                        <div class="message-close"><i class="fa-solid fa-xmark close"></i></div>
+                    </div>
+                </section>
+            {% endfor %}
+        {% endwith %}
+    {% endif %}
+{% endmacro %}

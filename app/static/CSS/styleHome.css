@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis&family=Roboto&display=swap');
+.content{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 17.5% 1fr;
+}
+
+.menu-container{
+    position: sticky;
+    height: 80vh;
+    width: 100%;
+    top: 10vh;
+}
+
+.menu{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    border-radius: 0 18px 18px 0;
+    background: #fff;
+    border-right: 2px solid #3c80ad;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    transition: transform 0.6s linear, box-shadow 0.6s linear, border 0.6s linear;
+    transform: translateX(-70%);
+}
+
+.menu:hover{
+    transform: translateX(0%);
+    border-top: 2px solid #3c80ad;
+    border-bottom: 2px solid #3c80ad;
+    box-shadow: 0 5px 10px 0 #000a;
+}
+
+.options{
+    height: 90%;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.options .option{
+    width: 100%;
+    padding: 10% 5%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: #000;
+}
+
+.options .option span{
+    font-family: cursive;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out, color 0.7s ease-in-out;
+}
+
+.options .option span p{
+    opacity: 1;
+    color: #000;
+}
+
+.options .option i{
+    opacity: 1;
+    transform: translateX(0%);
+    transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
+}
+
+.options .option:hover{
+    background: #3c80ad;
+    border-bottom: 2px solid #d74;
+}
+
+.options .option:hover span{
+    color: #fff;
+}
+
+
+.menu:hover .options .option i{
+    opacity: 0;
+    transform: translateX(-90%);
+}
+
+.menu:hover .options .option span{
+    opacity: 1;
+    transform: scale(1);
+}
+
+.main-container{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 70%;
+    row-gap: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.block{
+    width: 100%;
+    padding: 3% 7.5%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 0 10px 0 #0008;
+    border: 2px solid #d74;
+}
+
+.block h1{
+    font-family: 'Dosis', sans-serif;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: #3c80ad;
+}
+
+.block h2, .block h3{
+    font-family: 'Dosis', sans-serif;
+    text-align: center;
+}
+
+.block p{
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: #000d;
+}
+
+.btn{
+    font-family: cursive;
+    width: 40%;
+    align-self: center;
+    padding: 10px;
+    border-radius: 15px;
+    background: #f96;
+    color: #000;
+    border: none;
+    transition: background 0.6s ease-in-out, color 0.6s ease-in-out, box-shadow 0.6s ease-in-out;
+}
+
+.btn:hover{
+    background: #d74;
+    color: #000d;
+    box-shadow: 0 0 10px 0 #000a;
+}
+
+.btn:active{
+    background: #b52;
+    color: #000b;
+    box-shadow: 0 0 15px 0 #000f;
+}
+
+@media (max-width:620px){
+    .content{
+        grid-template-columns: 1fr;
+    }
+    .main-container{
+        grid-template-columns: 90%;
+        justify-content: center;
+    }
+    .menu-container{
+        display: none;
+    }
+    .menu{
+        display: none;
+    }
+}

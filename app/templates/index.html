@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Encuesta</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='CSS/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename=styles)}}">
+    <script src="https://kit.fontawesome.com/5820292e2c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="navbar-container">
+        <nav class="navbar">
+            <div class="navbar-title">
+                <a href="#"><span class="tu">Tu</span>Encuesta</a>
+            </div>
+        </nav>
+    </header>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

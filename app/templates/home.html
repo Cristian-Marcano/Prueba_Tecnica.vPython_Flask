@@ -1,0 +1,169 @@
+{% extends "index.html" %}
+{% block content %}
+    {% if nroEncuestas!=0 %}
+    <div class="content">
+        <aside class="menu-container">
+            <div class="menu">
+                <div class="options">
+                    <a class="option" href="#title">
+                        <span><p class="fa fa-house"></p>&nbsp; Principio</span><i class="fa fa-house"></i>
+                    </a>
+                    <a  class="option" href="#tiempo_promedio">
+                        <span><p class="fa fa-chart-bar"></p>&nbsp; Tiempo promedio</span><i class="fa fa-chart-bar"></i>
+                    </a>
+                    <a  class="option" href="#favoritas">
+                        <span><p class="fa fa-bars-progress"></p>&nbsp; Favoritas</span><i class="fa fa-bars-progress"></i>
+                    </a>
+                    <a  class="option" href="#init_age">
+                        <span><p class="fa fa-chart-simple"></p>&nbsp; Rango de edad</span><i class="fa fa-chart-simple"></i>
+                    </a>
+                    <a  class="option" href="#formulario">
+                        <span><p class="fa fa-list"></p>&nbsp; Formulario</span><i class="fa fa-list"></i>
+                    </a>
+                </div>
+            </div>
+        </aside>
+        <main class="main-container">
+            <article class="block">
+                <h1 id="title">Bienvenido a TuEncuesta</h1>
+                <p>
+                    Tu fuente confiable para obtener información valiosa sobre el uso de las 
+                    principales redes sociales: Facebook, Whatsapp, Twitter, Instagram y TikTok.
+                </p>
+                <p>
+                    Realizamos encuestas exhaustivas para descubrir tendencias y patrones en el uso 
+                    de estas plataformas. ¿Cuánto tiempo pasas en tus redes sociales favoritas? 
+                    ¿Cuál es la red que más te cautiva? ¿Quiénes son los usuarios más apasionados de cada plataforma?
+                </p>
+                <p>
+                    ¡Explora nuestros foro y descubre qué dicen las estadísticas sobre tu red social favorita!
+                </p>
+            </article>
+            <div class="block">
+                <h3>Nro. de Encuestas Respondidas</h3>
+                <p>
+                    Nos gustaría expresar nuestro más sincero agradecimiento a todas las personas 
+                    que dedicaron su tiempo y compartieron sus opiniones a través de nuestras 
+                    encuestas en TuEncuesta. Gracias a ustedes hemos obtenido una cantidad de 
+                    encuestas respondidas de:
+                </p>
+                <h2>{{nroEncuestas}}</h2>
+            </div>
+            <div class="block">
+                <h3 id="tiempo_promedio">Tiempo Promedio por Red Social</h3>
+                <canvas id="timeProm"></canvas>
+            </div>
+            <div class="block">
+                <h3 id="favoritas">Red Sociales Favorita</h3>
+                <canvas id="favorite"></canvas>
+            </div>
+            <div class="block">
+                <h3 id="init_age">Rango de edad que use mas Facebook</h3>
+                <canvas id="age_facebook"></canvas>
+            </div>
+            <div class="block">
+                <h3>Rango de edad que use mas Whatsapp</h3>
+                <canvas id="age_whatsapp"></canvas>
+            </div>
+            <div class="block">
+                <h3>Rango de edad que use mas Twitter</h3>
+                <canvas id="age_twitter"></canvas>
+            </div>
+            <div class="block">
+                <h3>Rango de edad que use mas Instagram</h3>
+                <canvas id="age_instagram"></canvas>
+            </div>
+            <div class="block">
+                <h3>Rango de edad que use mas Tiktok</h3>
+                <canvas id="age_tiktok"></canvas>
+            </div>
+            <div class="block">
+                <h3>Por favor apoyanos y danos tu opinion de este tema</h3>
+                <button class="btn" id="formulario" href="/form">Formulario</button>
+            </div>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            let obj;
+            const timeProm = document.getElementById('timeProm');
+            const favorite = document.getElementById('favorite');
+            const ageFacebook = document.getElementById('age_facebook');
+            const ageWhatsapp = document.getElementById('age_whatsapp');
+            const ageTwitter = document.getElementById('age_twitter');
+            const ageInstagram = document.getElementById('age_instagram');
+            const ageTiktok = document.getElementById('age_tiktok');
+            const arrayDatasets = (data,lab,borderColor,backColor)=>{
+                let arrayData = [];
+                for(const i in data) arrayData.push({label:lab[i],data:[data[i]],borderWidth:2,borderColor:borderColor[i],backgroundColor:backColor[i]});
+                return arrayData;
+            }
+            const generateChart = (graf,lab,data,labs,borderColor,backColor)=>{
+                new Chart(graf,{
+                    type:'bar',
+                    data:{
+                        labels:[labs],
+                        datasets: arrayDatasets(data,lab,borderColor,backColor)
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+            fetch('http://127.0.0.1:5000/Grafs').then(response=>{
+                if (!response.ok) {
+                    throw new Error('No se pudo obtener la información de la API');
+                }
+                return response.json();
+            }).then(res=>{
+                obj = res;
+                generateChart(timeProm,['Facebook','Whatsapp','Twitter','Instragram','Tiktok'],
+                              obj.times_prom,'Horas',['#1877F2','#25D366','#1DA1F2','#E4405F','#000'],
+                              ['#3897FF','#45F386','#3DC1FF','#F4607F','#202020']);
+                generateChart(favorite,['Facebook','Whatsapp','Twitter','Instragram','Tiktok'],
+                              obj.favorite,'Votos',['#1877F2','#25D366','#1DA1F2','#E4405F','#000'],
+                              ['#3897FF','#45F386','#3DC1FF','#F4607F','#202020']);
+                generateChart(ageFacebook,['18-25','26-33','34-40','40+'],
+                              obj.age_Fb,'Horas promedio en uso',['#d07040','#3c80ad','#c0c0c0','#0f0f0f'],
+                              ['#f09060','#5ca0cd','#e0e0e0','#202020']);
+                generateChart(ageWhatsapp,['18-25','26-33','34-40','40+'],
+                              obj.age_Wp,'Horas promedio en uso',['#d07040','#3c80ad','#c0c0c0','#0f0f0f'],
+                              ['#f09060','#5ca0cd','#e0e0e0','#202020']);
+                generateChart(ageTwitter,['18-25','26-33','34-40','40+'],
+                              obj.age_Tw,'Horas promedio en uso',['#d07040','#3c80ad','#c0c0c0','#0f0f0f'],
+                              ['#f09060','#5ca0cd','#e0e0e0','#202020']);
+                generateChart(ageInstagram,['18-25','26-33','34-40','40+'],
+                              obj.age_In,'Horas promedio en uso',['#d07040','#3c80ad','#c0c0c0','#0f0f0f'],
+                              ['#f09060','#5ca0cd','#e0e0e0','#202020']);
+                generateChart(ageTiktok,['18-25','26-33','34-40','40+'],
+                              obj.age_Tk,'Horas promedio en uso',['#d07040','#3c80ad','#c0c0c0','#0f0f0f'],
+                              ['#f09060','#5ca0cd','#e0e0e0','#202020']);
+            });
+        });
+    </script>
+    {% else %}
+    <main class="main-container">
+        <article class="block">
+            <h1>Bienvenido a TuEncuesta</h1>
+                <p>
+                    Tu fuente confiable para obtener información valiosa sobre el uso de las 
+                    principales redes sociales: Facebook, Whatsapp, Twitter, Instagram y TikTok.
+                </p>
+                <p>
+                    Realizamos encuestas exhaustivas para descubrir tendencias y patrones en el uso 
+                    de estas plataformas. ¿Cuánto tiempo pasas en tus redes sociales favoritas? 
+                    ¿Cuál es la red que más te cautiva? ¿Quiénes son los usuarios más apasionados de cada plataforma?
+                </p>
+        </article>
+        <div class="block">
+            <h3>Por favor apoyanos y danos tu opinion de este tema siendo el primero en esta</h3>
+            <button class="btn">Formulario</button>
+        </div>
+    </main>
+    {% endif %}
+{% endblock %}

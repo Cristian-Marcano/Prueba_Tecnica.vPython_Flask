@@ -1,0 +1,131 @@
+{% extends "index.html" %}
+{% from "macro.html" import render_message_error %}
+{% block content %}
+    {{render_message_error(messages)}}
+    <main class="container">
+        <div class="form">
+            <form action="" method="post">
+                <div class="input-group">
+                    <h2>Formulario</h2>
+                </div>
+                <div class="input-group">
+                    <input type="email" name="Email" id="email" class="input-group__email" required>
+                    <label for="email" class="input-group__label">Email</label>
+                </div>
+                <div class="input-group">
+                    <h3>Rango de Edad:</h3>
+                </div>
+                <div class="input-group inline">
+                    <div class="radio-group">
+                        <label class="radio">
+                            <input type="radio" name="age" value="18-25">
+                            18-25
+                            <span></span>
+                        </label>
+                    </div>
+                    <div class="radio-group">
+                        <label class="radio">
+                            <input type="radio" name="age" value="26-33">
+                            26-33
+                            <span></span>
+                        </label>
+                    </div>
+                    <div class="radio-group">
+                        <label class="radio">
+                            <input type="radio" name="age" value="34-40">
+                            34-40
+                            <span></span>
+                        </label>
+                    </div>
+                    <div class="radio-group">
+                        <label class="radio">
+                            <input type="radio" name="age" value="40+">
+                            40+
+                            <span></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="select-group inline">
+                    <div class="select-container sex">
+                        <select name="sex" class="select" title="Sexo">
+                            <option selected disabled>Sexo</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                        <div class="icon-container">
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                    </div>
+                    <div class="select-container favorite" >
+                        <select name="favorite" class="select" title="Favorite">
+                            <option selected disabled>Red Favorita</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Whatsapp">Whatsapp</option>
+                            <option value="Twitter">Twitter</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Tiktok">Tiktok</option>
+                        </select>
+                        <div class="icon-container">
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <h3>Tiempo promedio que usa:</h3>
+                </div>
+                <div class="range">
+                    <div class="sliderValue">
+                        <i class="fa-brands fa-square-facebook"></i> <span class="h facebook">0 Horas</span>
+                    </div>
+                    <label class="field">
+                        <div class="value left">0</div>
+                        <input type="range" name="timeFacebook" min="0" max="24" value="0" step="1" class="input-range facebook">
+                        <div class="value right">24</div>
+                    </label>
+                </div>
+                <div class="range">
+                    <div class="sliderValue">
+                        <i class="fa-brands fa-square-whatsapp"></i> <span class="h whatsapp">0 Horas</span>
+                    </div>
+                    <label class="field">
+                        <div class="value left">0</div>
+                        <input type="range" name="timeWhatsapp" min="0" max="24" value="0" step="1" class="input-range whatsapp">
+                        <div class="value right">24</div>
+                    </label>
+                </div>
+                <div class="range">
+                    <div class="sliderValue">
+                        <i class="fa-brands fa-square-twitter"></i> <span class="h twitter">0 Horas</span>
+                    </div>
+                    <label class="field">
+                        <div class="value left">0</div>
+                        <input type="range" name="timeTwitter" min="0" max="24" value="0" step="1" class="input-range twitter">
+                        <div class="value right">24</div>
+                    </label>
+                </div>
+                <div class="range">
+                    <div class="sliderValue">
+                        <i class="fa-brands fa-square-instagram"></i> <span class="h instagram">0 Horas</span>
+                    </div>
+                    <label class="field">
+                        <div class="value left">0</div>
+                        <input type="range" name="timeInstagram" min="0" max="24" value="0" step="1" class="input-range instagram">
+                        <div class="value right">24</div>
+                    </label>
+                </div>
+                <div class="range">
+                    <div class="sliderValue">
+                        <i class="fa-brands fa-tiktok"></i> <span class="h tiktok">0 Horas</span>
+                    </div>
+                    <label class="field">
+                        <div class="value left">0</div>
+                        <input type="range" name="timeTiktok" min="0" max="24" value="0" step="1" class="input-range tiktok">
+                        <div class="value right">24</div>
+                    </label>
+                </div>
+                <button type="submit" class="btn-submit">Submit</button>
+            </form>
+        </div>
+    </main>
+    <script src="{{url_for('static',filename='JS/scriptForm.js')}}"></script>
+{% endblock %}
