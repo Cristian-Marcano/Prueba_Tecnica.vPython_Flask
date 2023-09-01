@@ -1,0 +1,4 @@
+#__pycaches__
+app/__pycache__
+app/routes/__pycache__
+app/schemas/__pycache__
