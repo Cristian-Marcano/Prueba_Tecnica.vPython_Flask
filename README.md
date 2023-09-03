@@ -16,14 +16,17 @@ Primero ante todo crea la base de datos en Mysql con el nombre $sqlalchemy$.
 En consola en la direccion donde guardaste la aplicacion debes de colocar:
 
 ```
+py -m pip install virtualenv 
+py -m virtulaenv venv
+cd venv/Scripts
+activate //Si no funciona prueba con ./activate
+cd ../..
+py -m pip install -r requirements.txt
 py run.py
 ```
 Y listo, dirigete al link http://127.0.0.1:5000
 
-## Herramientas
+## Herramientas de Ejecución
 
-- Python/Flask
+- Python
 - MySQL
-- HTML/CSS
-- JavaScript 
-
