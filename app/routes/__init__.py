@@ -2,7 +2,7 @@ from flask import render_template,request,url_for,redirect,flash,jsonify;
 from app import app,db;
 from app.schemas.database import Encuesta;
 import re;
-from sqlalchemy import func,case;
+from sqlalchemy import func;
 
 def verify_input(req:request):
     if (re.match(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}',req.form.get('Email')) 
@@ -23,7 +23,7 @@ def verify_input(req:request):
 def webs_age_category(ok,search,count=False):
     if count:
         nroEncuestas = Encuesta.query.count();
-        return [(db.session.query(func.sum(ok)).filter(Encuesta.age_category==i).first()[0])/nroEncuestas for i in search];
+        return [(db.session.query(func.coalesce(func.sum(ok),0)).filter(Encuesta.age_category==i).first()[0])/nroEncuestas for i in search];
     return [(db.session.query(func.count(ok)).filter(Encuesta.favorite_web==i).first()[0]) for i in search];
 
 @app.route('/')

@@ -131,6 +131,8 @@
 }
 
 .btn{
+    text-align: center;
+    text-decoration: none;
     font-family: cursive;
     width: 40%;
     align-self: center;
